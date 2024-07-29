@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block content %}
+<main class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>{{ press.title }}</h1>
+            <div class="container mt-3">
+                <div class="horizontal-bar mb-3"></div>
+            </div>
+            <div class="content text-left">
+                <p>{{ press.text|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for photo in press.photos.all %}
+        <div class="col-md-3 col-sm-3 mb-3 d-flex justify-content-center">
+            <img src="{{ photo.image.url }}" class="img-fluid rounded" alt="Image">
+        </div>
+        {% endfor %}
+        <div class="container mt-3">
+            <div class="horizontal-bar mb-3"></div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

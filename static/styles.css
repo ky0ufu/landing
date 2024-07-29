@@ -1,0 +1,119 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.hero {
+    background: url('hero-image.jpg') center center no-repeat;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero h1 {
+    font-size: 3em;
+}
+
+.btn-more {
+    margin-top: 20px;
+}
+
+.greeting {
+    background-color: white;
+    padding: 40px 0;
+}
+
+.greeting img {
+    max-width: 100%;
+}
+
+
+
+.news-item, .event-item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.horizontal-bar {
+    height: 1px; /* Высота полосы */
+    background-color: #31313685; /* Цвет полосы */
+}
+
+.vertical-bar {
+    width: 1px; /* Ширина полосы */
+    background-color: #31313685; /* Цвет полосы */
+}
+.bar-container {
+    display: flex;
+    height: 100%; /* Полоса растягивается на высоту строки */
+}
+.row {
+    min-height: 100px; /* Минимальная высота строки для наглядности */
+}
+.col {
+    display: flex;
+    align-items: stretch; /* Растягивает элементы по высоте */
+}
+
+.carousel-inner img {
+    width: 100%; /* Сделать изображение на всю ширину */
+    height: auto; /* Фиксированная высота изображения */
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+}
+.carousel-indicators {
+    position: absolute;
+    bottom: -30px; /* Расположить индикаторы немного ниже карусели */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+.carousel-indicators li {
+    background-color: #007bff; /* Цвет для неактивных индикаторов */
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.carousel-indicators .active {
+    background-color: #003d7d; /* Темно-синий цвет для активного индикатора */
+}
+.carousel-indicators li:not(.active) {
+    background-color: #cce5ff; /* Цвет для неактивных индикаторов */
+}
+
+.bg-bright {
+    background-color: #f0f0f0;
+}
+
+footer {
+    flex-shrink: 0;
+}
+.hidden {
+    overflow: hidden;
+}
+
+.detail {
+    color:#071d35cd
+}
+
+.all {
+    color:#003d7d
+}
+
+.detail_info {
+    color:#0459b4
+}

@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <main class="container mt-4 rounded">
+        <h1>Новости и Мероприятия</h1>
+        <div class="container">
+            <div class="row">
+                {% for event in page_obj %}
+                    <div class="col-lg-10 col-md-8 col-sm-10 col-12">
+                        <div class="overflow-auto border rounded item bg-white d-flex flex-grow-1 flex-column flex-md-row align-items-left mb-3">
+                            <div class="col-8 order-2">
+                                <div class="mb-2">
+                                    {% for tag in event.tags.all %}
+                                        <span class="badge">#{{ tag.name }}</span>
+                                    {% empty %}
+                                    {% endfor %}
+                                </div>
+                                <h5><a href="{% url 'landing:news_detail' event.slug %}" class="detail_info text-decoration-none">{{ event.title }}</a></h5>
+                                <p>Краткое описание новости...</p>
+                            </div>
+                            <div class="d-flex order-1 order-md-2 order-sm-1 flex-grow-1 d-flex justify-content-end">
+                                <img src="{{ event.thumbnail.url }}" class="img-fluid" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% include "core/paginator.html" %}
+    </main>
+
+{% endblock %}
