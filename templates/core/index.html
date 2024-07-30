@@ -1,22 +1,21 @@
 {% extends "core/base.html" %}
 {% block content %}
 {% load thumbnail %}
-<!-- First Screen -->
-<section id="about" class="hero bg-primary text-white">
+{% load static %}
+
+<section id="about" class="hero">
     <div class="container">
         <h1>Совет ректоров вузов Дальневосточного федерального округа</h1>
         <p>Цель создания Совета ректоров вузов Дальневосточного федерального округа...</p>
-        <button class="btn btn-light btn-more">Читать дальше</button>
+        <a href="{% url 'landing:info' %}" class="btn btn-light btn-more">Читать дальше</a>
     </div>
-    <div id="map"></div>
 </section>
 
-<!-- Welcome from the Chairman -->
-<section class="bg-bright">
+<section class="bg-bright px-4">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <img src="6.jpg" alt="Председатель" class="img-fluid rounded">
+                <img src="{% static "head.jpg" %}" alt="Председатель" class="img-fluid rounded">
             </div>
             <div class="col-md-9">
                 <h2>Приветственное слово Председателя</h2>
@@ -28,7 +27,7 @@
 <div class="container mt-3">
     <div class="horizontal-bar mb-3"></div>
 </div>
-<section id="events-news" class="bg-bright">
+<section id="news" class="bg-bright">
     <div class="container mt-4">
         <h2 class="mb-4 text-center">Мероприятия и новости</h2>
         <div id="newsCarousel" class="carousel slide bg-white" data-ride="carousel">
@@ -160,5 +159,16 @@
 <div class="container mt-3">
     <div class="horizontal-bar mb-3"></div>
 </div>
-
+<section id="document" class="bg-bright">
+    <h1 class="text-center mb-4">Документы</h1>
+    <div class="list-group container col-md-2 d-flex">
+        {% for document in documents %}
+        <a href="{{ document.file.url }}" class="text-center all list-group-item list-group-item-action" target="_blank">
+            {{ document.title }}
+        </a>
+        {% empty %}
+        <p class="text-center">Документы не найдены.</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

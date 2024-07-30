@@ -1,0 +1,60 @@
+{% extends "core/base.html" %}
+{% block content %}
+<main class="container mt-4">
+    <h1>О Совете</h1>
+    <section>
+        <h2>Структура Совета ректоров вузов Дальневосточного федерального округа</h2>
+        <p>Структура...</p>
+    </section>
+    <div class="container mt-3">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+    <section>
+        <h2>Состав Совета ректоров вузов Дальневосточного федерального округа</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Регион</th>
+                    <th>Название университета</th>
+                    <th>Ректор университета</th>
+                    <th>Сайт университета</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                <tr>
+                    <td>{{ member.region }}</td>
+                    <td>{{member.university}}</td>
+                    <td>{{member.decan}}</td>
+                    <td><a class="all text-decoration-none font-weight-bold" href="{{member.university_url}}" target="_blank">Сайт</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <div class="container mt-3">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+    <section>
+        <h2>Региональные советы ректоров вузов Дальневосточного федерального округа</h2>
+        <table class="table">
+            <thead>
+            </thead>
+            <tbody>
+                {% for member in members_region %}
+                <tr>
+                    <td>{{ member.region }}</td>
+                    <td>{{member.university}}</td>
+                    <td>{{member.decan}}</td>
+                    <td><a class="all text-decoration-none font-weight-bold" href="{{member.university_url}}" target="_blank">Сайт</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <div class="container mt-3">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+</main>
+
+{% endblock %}

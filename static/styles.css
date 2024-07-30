@@ -3,11 +3,12 @@ body {
 }
 
 .hero {
-    background: url('hero-image.jpg') center center no-repeat;
-    background-size: cover;
+    background: url('background.jpg');
+    background-size: contain;
     color: white;
     text-align: center;
-    padding: 100px 0;
+    position: relative;
+    padding: 100px;
 }
 
 .hero h1 {
@@ -115,5 +116,5 @@ footer {
 }
 
 .detail_info {
-    color:#0459b4
+    color:#02458ecf
 }

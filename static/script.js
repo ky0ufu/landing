@@ -1,38 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Обработчик для кнопки "Читать дальше"
-    document.querySelector('.btn-more').addEventListener('click', function() {
-        window.location.href = 'about.html';
-    });
+var map = L.map('map').setView([52.5, 137.0], 4); // Координаты и масштаб для Дальнего Востока России
 
-    // Функция для интерактивной карты
-    const regions = document.querySelectorAll('#map area');
-    regions.forEach(region => {
-        region.addEventListener('click', function(event) {
-            event.preventDefault();
-            const regionName = this.getAttribute('data-name');
-            // Вызов модального окна или переход на страницу региона
-            alert(`Вы выбрали регион: ${regionName}`);
-        });
-    });
-});
+        // Добавление базового слоя карты
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const video = document.getElementById('video-player');
-    
-    video.addEventListener('timeupdate', (e) => {
-        console.log(`Current time: ${video.currentTime}`);
-    });
-
-    video.addEventListener('seeked', (e) => {
-        console.log(`Seeked to: ${video.currentTime}`);
-    });
-
-    video.addEventListener('playing', (e) => {
-        console.log('Video is playing');
-    });
-
-    video.addEventListener('pause', (e) => {
-        console.log('Video is paused');
-    });
-});
+        // Пример добавления маркера
+        L.marker([48.5, 135.1]).addTo(map) // Координаты Хабаровска
+            .bindPopup('Хабаровск')
+            .openPopup();

@@ -74,3 +74,16 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('image',)
+
+
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('region', 'decan', 'university', 'university_url', 'slug')
+    search_fields = ('decan','university',)
+    prepopulated_fields = {'slug': ('decan','university')}
+
+
+@admin.register(Document)
+class DocumentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'file',)
+    search_fields = ('title',)

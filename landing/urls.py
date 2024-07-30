@@ -11,7 +11,7 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('', views.index, name='main'),
 
-    #path('info/', views.info, name='info'),
+    path('info/', views.info, name='info'),
 
     path('press/<slug:slug>/', views.press_detail, name='press_detail'),
     path('press/', views.press, name='press'),

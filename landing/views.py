@@ -71,13 +71,16 @@ def index(request):
 
     reports = PhotoReport.objects.order_by('-created_at')[:media_count]
 
+    documents = Document.objects.all()
+
     videos = Video.objects.order_by('-created_at')[:media_count]
     context = {
         'news': news,
         'presses': presses,
         'announcements': announcements,
         'reports': reports,
-        'videos': videos
+        'videos': videos,
+        'documents': documents,
     }
     return render(request, 'core/index.html', context)
 
@@ -115,3 +118,15 @@ def video_detail(request, slug):
     context = {'video': video}
 
     return render(request, 'details/video_detail.html', context)
+
+
+def info(request):
+
+    members = Member.objects.filter(is_member=True)
+    members_region = Member.objects.filter(is_member_region=True)
+
+    context = {
+        'members': members,
+        'members_region': members_region
+    }
+    return render(request, 'about.html', context)
