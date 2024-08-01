@@ -3,6 +3,7 @@ from pytils.translit import slugify
 from datetime import datetime
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image
 
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -43,13 +44,29 @@ class BaseModel(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = self.unique_slug()
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+        
+        img_path = self.image.path
+
+        thumb_path = self.thumbnail.path
+
+        max_img = (260, 160)
+
+        max_thumb = (300, 190)
+
+        self.resize_img(img_path, max_img)
+
+        self.resize_img(thumb_path, max_thumb)
     
+    
+    def resize_img(self, path, size):
+        with Image.open(path) as img:
+            img = img.resize(size, Image.LANCZOS)
+            img.save(path)
 
 
 class Photo(models.Model):
     image = models.ImageField(blank=True, upload_to='photos/', verbose_name='Изображение')
-    title = models.TextField(verbose_name='Заголовок')
 
 
     class Meta:
@@ -57,14 +74,13 @@ class Photo(models.Model):
         verbose_name_plural = 'Фотографии'
 
     def __str__(self):
-        return f'{self.title}'
+        string = self.image.url.split('/')[-1].split('.')[0]
+        return f'{string}'
     
     def get_absolute_url(self):
         return reverse("photo_detail", kwargs={"id": self.id})
     
     def save(self, *args, **kwargs):
-        if not self.title:
-            self.title = self.image.url.split('/')[-1].split('.')[0]
         return super().save(*args, **kwargs)
     
 
@@ -76,6 +92,25 @@ class News(BaseModel):
 
     def get_absolute_url(self):
         return reverse("news", kwargs={'slug': self.slug})
+    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.unique_slug()
+        super(BaseModel, self).save(*args, **kwargs)
+        
+        img_path = self.image.path
+
+        thumb_path = self.thumbnail.path
+
+        max_img = (1100, 675)
+
+        max_thumb = (300, 190)
+
+        self.resize_img(img_path, max_img)
+
+        self.resize_img(thumb_path, max_thumb)
+    
 
     class Meta:
         verbose_name = 'Новость'
@@ -123,7 +158,7 @@ class Announcement(BaseModel):
 
 
 class Video(BaseModel):
-
+    text = models.TextField()
     video_url = models.URLField(blank=True, null=True, verbose_name='Ссылка на видео')
     video_file = models.FileField(upload_to='videos/', blank=True, null=True, verbose_name='видео файл')
 
@@ -138,7 +173,6 @@ class Video(BaseModel):
 
     def get_embeded_url(self):
         if self.video_url:
-            # Извлечение идентификатора видео из URL
             video_id = self.video_url.split('v=')[-1]
             if '&' in video_id:
                 video_id = video_id.split('&')[0]
@@ -157,7 +191,7 @@ class Member(models.Model):
 
     university_url = models.URLField(null=True, blank=True, verbose_name='Ссылка на вуз')
 
-    is_head = models.BooleanField(default=False, verbose_name='Является главной?')
+    site_name = models.CharField(max_length=100, verbose_name='Название сайта', default='Сайт')
 
     is_member = models.BooleanField(default=False, verbose_name='Является членом совета ректоров вузов? ')
 
@@ -199,3 +233,14 @@ class Document(models.Model):
 
     
 
+class RegionSites(models.Model):
+    region = models.CharField(max_length=100, verbose_name='Регион')
+
+    site_url = models.URLField(null=True, blank=True, verbose_name='Ссылка на сайт')
+    
+    site_name = models.CharField(max_length=100, verbose_name='Название сайта', default='Сайт')
+
+
+    class Meta:
+        verbose_name = 'Региональный совет ректоров'
+        verbose_name_plural = 'Региональные советы ректоров'

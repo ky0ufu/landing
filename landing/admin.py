@@ -78,7 +78,7 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('region', 'decan', 'university', 'university_url', 'slug')
+    list_display = ('region', 'decan', 'university', 'site_name', 'university_url', 'slug',)
     search_fields = ('decan','university',)
     prepopulated_fields = {'slug': ('decan','university')}
 
@@ -87,3 +87,9 @@ class MemberAdmin(admin.ModelAdmin):
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('title', 'file',)
     search_fields = ('title',)
+
+
+@admin.register(RegionSites)
+class RegionSitesAdmin(admin.ModelAdmin):
+    list_display = ('region', 'site_url', 'site_name')
+    search_fields = ('region',)

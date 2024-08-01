@@ -4,54 +4,121 @@
     <h1>О Совете</h1>
     <section>
         <h2>Структура Совета ректоров вузов Дальневосточного федерального округа</h2>
-        <p>Структура...</p>
+        <div class="container org-chart">
+            <!-- Уровень 1 -->
+            <div class="row justify-content-center level">
+                <div class="col-auto node">
+                    <div class="node-content border bg-white p-3"><h4>Пример</h4></div>
+                </div>
+            </div>
+        
+            <!-- Уровень 2 -->
+            <div class="row justify-content-center level">
+                <div class="col-auto node-group">
+                    <div class="node">
+                        <div class="node-content border bg-white p-3"><h5>Пример 1</h5></div>
+                    </div>
+                    <div class="node">
+                        <div class="node-content border bg-white p-3"><h5>Пример 2</h5></div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Уровень 3 -->
+            <div class="row justify-content-center level">
+                <div class="col-auto node-group">
+                    <div class="node">
+                        <div class="node-content node border bg-white"><h5>Пример 1</h5></div>
+                        <div class="sub-node-group border">
+                            <div class="node border bg-white"><h6>Пример 1</h6></div>
+                            <div class="node border bg-white"><h6>Пример 2</h6></div>
+                        </div>
+                    </div>
+                    <div class="node">
+                        <div class="node-content node border bg-white"><h5>Пример 2</h5></div>
+                        <div class="sub-node-group border">
+                            <div class="node border bg-white"><h6>Пример 3</h6></div>
+                            <div class="node border bg-white"><h6>Пример 4</h6></div>
+                        </div>
+                    </div>
+                    <div class="node">
+                        <div class="node-content node border bg-white"><h5>Пример 3</h5></div>
+                        <div class="sub-node-group border">
+                            <div class="node border bg-white"><h6>Пример 5</h6></div>
+                            <div class="node border bg-white"><h6>Пример 6</h6></div>
+                        </div>
+                    </div>
+                    <div class="node">
+                        <div class="node-content node border bg-white"><h5>Пример 4</h5></div>
+                        <div class="sub-node-group border">
+                            <div class="node border bg-white"><h6>Пример 7</h6></div>
+                            <div class="node border bg-white"><h6>Пример 8</h6></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
     </section>
     <div class="container mt-3">
         <div class="horizontal-bar mb-3"></div>
     </div>
     <section>
-        <h2>Состав Совета ректоров вузов Дальневосточного федерального округа</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Регион</th>
-                    <th>Название университета</th>
-                    <th>Ректор университета</th>
-                    <th>Сайт университета</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for member in members %}
-                <tr>
-                    <td>{{ member.region }}</td>
-                    <td>{{member.university}}</td>
-                    <td>{{member.decan}}</td>
-                    <td><a class="all text-decoration-none font-weight-bold" href="{{member.university_url}}" target="_blank">Сайт</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Первая таблица -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <section>
+                        <h2>Состав Совета ректоров вузов Дальневосточного федерального округа</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Регион</th>
+                                    <th>Название университета</th>
+                                    <th>Ректор университета</th>
+                                    <th>Сайт университета</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in members %}
+                                <tr>
+                                    <td>{{ member.region }}</td>
+                                    <td>{{ member.university }}</td>
+                                    <td>{{ member.decan }}</td>
+                                    <td><a class="text-decoration-none font-weight-bold" href="{{ member.university_url }}" target="_blank">Сайт</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+                
+                <!-- Вторая таблица -->
+                <div class="col-md-6">
+                    <section>
+                        <h2>Региональные советы ректоров вузов Дальневосточного федерального округа</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Регион</th>
+                                    <th>Сайт университета</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in members_region %}
+                                <tr>
+                                    <td>{{ member.region }}</td>
+                                    <td><a class="text-decoration-none font-weight-bold" href="{{ member.university_url }}" target="_blank">Сайт</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
     </section>
-    <div class="container mt-3">
-        <div class="horizontal-bar mb-3"></div>
-    </div>
-    <section>
-        <h2>Региональные советы ректоров вузов Дальневосточного федерального округа</h2>
-        <table class="table">
-            <thead>
-            </thead>
-            <tbody>
-                {% for member in members_region %}
-                <tr>
-                    <td>{{ member.region }}</td>
-                    <td>{{member.university}}</td>
-                    <td>{{member.decan}}</td>
-                    <td><a class="all text-decoration-none font-weight-bold" href="{{member.university_url}}" target="_blank">Сайт</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
+
     <div class="container mt-3">
         <div class="horizontal-bar mb-3"></div>
     </div>

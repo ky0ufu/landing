@@ -4,24 +4,28 @@
         <h1>Новости и Мероприятия</h1>
         <div class="container">
             <div class="row">
-                {% for event in page_obj %}
-                    <div class="col-lg-12 col-md-10 col-sm-10 col-12">
-                        <div class="overflow-auto border rounded item bg-white d-flex flex-grow-1 flex-column flex-md-row align-items-left mb-3">
+                {% for object in page_obj %}
+                    <div class="col-lg-10 col-md-8 col-sm-10 col-12">
+                        <div class=" item bg-bright d-flex flex-grow-1 flex-column flex-md-row align-items-left mb-3">
                             <div class="col-8 order-2">
                                 <div class="mb-2">
-                                    {% for tag in event.tags.all %}
+                                    {% for tag in object.tags.all %}
                                         <span class="badge">#{{ tag.name }}</span>
                                     {% empty %}
                                     {% endfor %}
                                 </div>
-                                <h5><a href="{% url 'landing:news_detail' event.slug %}" class="link-opacity-75-hover detail_info text-decoration-none">{{ event.title }}</a></h5>
-                                <p>{{event.text|truncatechars:100}}</p>
+                                <h5><a href="{% url 'landing:news_detail' object.slug %}" class="font-weight-bold ink-opacity-75-hover detail_info text-decoration-none">{{ object.title }}</a></h5>
+                                <p>{{object.text|truncatechars:200}}</p>
                             </div>
                             <div class="d-flex order-1 order-md-2 order-sm-1 flex-grow-1 d-flex justify-content-end">
-                                <img src="{{ event.thumbnail.url }}" class="img-fluid" alt="Image">
+                                <img src="{{ object.image.url }}" class="img-fluid" alt="Image">
                             </div>
                         </div>
+                        <div class="container mt-3">
+                            <div class="horizontal-bar mb-3"></div>
+                        </div>
                     </div>
+                   
                 {% endfor %}
             </div>
         </div>

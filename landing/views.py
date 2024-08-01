@@ -123,7 +123,8 @@ def video_detail(request, slug):
 def info(request):
 
     members = Member.objects.filter(is_member=True)
-    members_region = Member.objects.filter(is_member_region=True)
+    members_region = RegionSites.objects.all()
+
 
     context = {
         'members': members,

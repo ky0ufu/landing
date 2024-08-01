@@ -118,3 +118,69 @@ footer {
 .detail_info {
     color:#02458ecf
 }
+
+.card {
+    height: 100%;
+}
+
+.card-img-top img {
+    max-height: 100%;
+    object-fit: cover;
+}
+.h-60 {
+    height: 60%;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 3rem;
+    height: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-size: 100%, 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.org-chart {
+    text-align: center;
+}
+.org-chart .level {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px; /* отступ между уровнями */
+}
+.org-chart .node {
+    padding: 10px;
+    margin: 0 10px;
+    display: inline-block;
+}
+.org-chart .node-group {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.org-chart .node-group .node {
+    position: relative;
+    margin: 0 5px; /* отступ между ячейками */
+}
+.org-chart .sub-node-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.org-chart .sub-node-group .node {
+    margin: 5px 5px;
+}
+.img-fluid {
+    width: 100%; 
+    height: auto; 
+}
+
+.gallery-item {
+    margin-bottom: 0; 
+}

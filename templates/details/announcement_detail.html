@@ -12,12 +12,16 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        {% for photo in announcement.photos.all %}
-        <div class="col-md-4 mb-4">
-            <img src="{{ photo.image.url }}" class="img-fluid rounded" alt="Image">
+    <div class="container mt-4">
+        <div class="row no-gutters">
+            {% for photo in announcement.photos.all %}
+            <div class="col-md-3 col-6 gallery-item">
+                <a href="{{ photo.image.url }}" data-fancybox="gallery">
+                    <img src="{{ photo.image.url }}" class="img-fluid" alt="Image">
+                </a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
         <div class="container mt-3">
             <div class="horizontal-bar mb-3"></div>
         </div>
