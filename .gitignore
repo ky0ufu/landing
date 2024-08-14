@@ -7,3 +7,4 @@ media/thumbnails
 media/cache
 media/videos
 media/documents
+__pycache__/

@@ -145,37 +145,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.org-chart {
-    text-align: center;
-}
-.org-chart .level {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px; /* отступ между уровнями */
-}
-.org-chart .node {
-    padding: 10px;
-    margin: 0 10px;
-    display: inline-block;
-}
-.org-chart .node-group {
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-.org-chart .node-group .node {
-    position: relative;
-    margin: 0 5px; /* отступ между ячейками */
-}
-.org-chart .sub-node-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-}
-.org-chart .sub-node-group .node {
-    margin: 5px 5px;
-}
+
 .img-fluid {
     width: 100%; 
     height: auto; 
@@ -183,4 +153,122 @@ body {
 
 .gallery-item {
     margin-bottom: 0; 
+}
+
+.header {
+    background-color: #1559a2;
+    padding: 10px 0;
+    color: white;
+}
+
+.bg-blue {
+    background-color: #1559a2;
+}
+
+
+#brief_inf {
+    display: flex;
+    align-items: flex-start;
+    background-color: #007BFF;
+    color: white;
+    padding: 20px;
+    overflow: hidden; /
+}
+
+#brief_inf ul {
+    list-style-type: none;
+}
+
+#brief_inf #svg li {
+    width: 48%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+
+h3 {
+    font-size: 48px;
+}
+
+#brief_inf #svg div {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    font-size: 24px;
+}
+
+#brief_inf a {
+    text-decoration: none;
+}
+
+
+#brief_inf path {
+    stroke: #ffffff;
+}
+
+#brief_inf .nexist {
+    fill: #bbbbbb;
+    cursor: pointer;
+}
+
+#brief_inf .other {
+    fill: rgb(111, 184, 141);
+    cursor: pointer;
+}
+
+#brief_inf .exist {
+    fill: rgb(176, 31, 31);
+    cursor: pointer;
+}
+
+#brief_inf .other:hover, #brief_inf .exist:hover, #brief_inf .nexist:hover {
+    fill: rgb(119, 0, 255);
+}
+
+#brief_inf .other:active, #brief_inf .exist:active, #brief_inf .nexist:active {
+    fill: rgb(119, 0, 255);
+}
+
+#brief_inf #speech li {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+}
+
+#region_inf {
+    width: 100%;
+    height: auto;
+}
+
+#brief_inf {
+    display: flex;
+    align-items: center;
+    background-color: #007BFF;
+    color: white;
+    padding: 20px;
+}
+
+#brief_inf .text-container {
+    flex: 0 0 35%;
+    margin-right: 20px;
+    font-size: 1.5rem;
+    justify-content: center;
+}
+
+.svg-container {
+    flex: 1;
+    max-width: 70%;
+}
+
+#brief_inf svg {
+    width: 100%;
+    height: auto; 
+    min-width: 400px; 
+}
+
+@media (max-width: 1000px) {
+    #brief_inf {
+        flex-direction: column;
+        align-items: center; 
+    }
 }
