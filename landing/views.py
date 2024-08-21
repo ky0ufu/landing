@@ -29,58 +29,45 @@ def press(request):
     
     return render(request, 'layer_s/press.html', context)
 
-def announcement(request):
-    announcements = Announcement.objects.order_by('-created_at')
+# def announcement(request):
+#     announcements = Announcement.objects.order_by('-created_at')
 
-    page_number = request.GET.get('page')
+#     page_number = request.GET.get('page')
     
-    context = get_context(announcements, page_number)
+#     context = get_context(announcements, page_number)
     
-    return render(request, 'layer_s/announcements.html', context)
+#     return render(request, 'layer_s/announcements.html', context)
 
 
-def photo(request):
-    photos = PhotoReport.objects.order_by('-created_at')
+# def photo(request):
+#     photos = PhotoReport.objects.order_by('-created_at')
 
-    page_number = request.GET.get('page')
+#     page_number = request.GET.get('page')
     
-    context = get_context(photos, page_number)
+#     context = get_context(photos, page_number)
     
-    return render(request, 'layer_s/photo.html', context)
+#     return render(request, 'layer_s/photo.html', context)
 
 
-def video(request):
-    videos = Video.objects.order_by('-created_at')
+# def video(request):
+#     videos = Video.objects.order_by('-created_at')
 
-    page_number = request.GET.get('page')
+#     page_number = request.GET.get('page')
     
-    context = get_context(videos, page_number)
+#     context = get_context(videos, page_number)
     
-    return render(request, 'layer_s/video.html', context)
+#     return render(request, 'layer_s/video.html', context)
 
 
 
 def index(request):
     objects_count = 4
-    media_count = 2
     news = News.objects.order_by('-created_at')[:objects_count]
-
-    presses = Press.objects.order_by('-created_at')[:objects_count]
-
-    announcements = Announcement.objects.order_by('-created_at')[:objects_count]
-
-    reports = PhotoReport.objects.order_by('-created_at')[:media_count]
-
-    documents = Document.objects.all()
-
-    videos = Video.objects.order_by('-created_at')[:media_count]
+    text = "Совет ректоров высших учебных заведений Дальневосточного федерального округа является составной частью государственно-общественной системы управления высшим образованием в Российской Федерации и создан в целях содействия развитию и координации связей вузов региона по эффективному использованию интеллектуального потенциала вузов в интересах развития производительных сил, определения экономических и социально-гуманитарных мер по улучшению демографической ситуации в Дальневосточном федеральном округе; разработки и реализации прогнозов и программ развития округа, ориентированных на решение проблем региона средствами науки и образования; содействия в деятельности полномочного представителя Президента Российской Федерации в Дальневосточном федеральном округе"
+    
     context = {
         'news': news,
-        'presses': presses,
-        'announcements': announcements,
-        'reports': reports,
-        'videos': videos,
-        'documents': documents,
+        'text': text,
     }
     return render(request, 'core/index.html', context)
 
@@ -100,34 +87,61 @@ def press_detail(request, slug):
     return render(request, 'details/press_detail.html', context)
 
 
-def announcement_detail(request, slug):
-    announcement = get_object_or_404(Announcement, slug=slug)
-    context = {'announcement': announcement}
-
-    return render(request, 'details/announcement_detail.html', context)
-
-def photo_detail(request, slug):
-    report = get_object_or_404(PhotoReport, slug=slug)
-    context = {'report': report}
-
-    return render(request, 'details/photo_detail.html', context)
+def document(request):
+    documents = Document.objects.all()
+    context = {
+        'documents': documents,
+    }
+    return render(request, 'layer_s/documents.html', context)
 
 
-def video_detail(request, slug):
-    video = get_object_or_404(Video, slug=slug)
-    context = {'video': video}
+def conatct(request):
+    adress = "690922, Приморский край, г. Владивосток, о. Русский, п. Аякс, 10"
+    email = "rectorsdfo@dvfu.ru"
 
-    return render(request, 'details/video_detail.html', context)
+    secretary = "Гридасов Александр Валентинович"
+    secretary_phone = "8 (423) 265 24 24 (доб.2123)"
+    secretary_email = "gridasov.av@dvfu.ru"
+
+    lead_specialist = "Фомен Дарья Андреевна"
+    lead_phone = "8 (423) 265 24 24 (доб. 2332)"
+    lead_email = "fomen.dan@dvfu.ru"
+
+    techlead = "Юсипов Евгений Ансарович"
+    techlead_phone = "8 (423) 265 24 24 (доб. 2716)"
+    techlead_email = "yusipov.ea@dvfu.ru"
+
+    context = {
+        'secretary': secretary,
+        'secretary_phone': secretary_phone,
+        'secretary_email': secretary_email,
+        'lead_specialist': lead_specialist,
+        'lead_phone': lead_phone,
+        'lead_email': lead_email,
+        'techlead': techlead,
+        'techlead_phone': techlead_phone,
+        'techlead_email': techlead_email,
+    }
+
+    return render(request, 'layer_s/contacts.html', context)
+
 
 
 def info(request):
+    head = Member.objects.filter(describtion__icontains='председатель Совета ректоров вузов Дальневосточного федерального округа').first()
+    
+    subheads = Member.objects.filter(describtion__icontains='заместитель председателя Совета ректоров вузов Дальневосточного федерального округа').all()
+    leads = []
+    leads.append(head)
+    for subhead in subheads:
+        leads.append(subhead)
 
-    members = Member.objects.filter(is_member=True)
-    members_region = RegionSites.objects.all()
-
+    councils = Council.objects.all()
+    presidium = PresidumMember.objects.all()
 
     context = {
-        'members': members,
-        'members_region': members_region
+        'leads': leads,
+        'councils': councils,
+        'presidium': presidium,
     }
     return render(request, 'about.html', context)

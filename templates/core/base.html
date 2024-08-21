@@ -14,31 +14,31 @@
 </head>
 <body class="bg-bright">
     <!-- Header -->
-    <header class="bg-blue navbar navbar-expand-lg shadow navbar-dark">
+    <header class="bg-blue navbar navbar-expand-lg shadow navbar-dark sticky-top font-weight-bold">
         <br><a class="navbar-brand" href="https://rsr-online.ru" target="_blank">Российский Союз Ректоров</a></br>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}#about">О совете</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}#news">Мероприятия и новости</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}#press">Для прессы</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}#document">Документы</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url "landing:main" %}#contact">Контакты</a></li>
+            <ul class="navbar-nav mx-auto font-weight-bold">
+                <li class="nav-item"><a class="text-light nav-link" href="{% url "landing:main" %}">Главная</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url "landing:info" %}">О совете</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url "landing:document" %}">Документы</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url "landing:news" %}">Мероприятия и новости</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url "landing:contact" %}">Контакты</a></li>
             </ul>
         </div>
     </header>
-
 
     {% block content %}
 
     {% endblock %}
 
     <footer id="contact" class="bg-bright text-center text-lg-start mt-4">
-        <div class="container p-4">
-            <p>© Совет ректоров вузов Дальневосточного федерального округа</p>
+        <div class="container text-left">
+            <p class="text-center">© Совет ректоров вузов Дальневосточного федерального округа</p>
+            <b><p class="font-weight-bold h6">690922, Приморский край, г. Владивосток, о. Русский, п. Аякс, 10</p></b>
+            <b><p class="font-weight-bold h6">rectorsdfo@dvfu.ru</p></b>
         </div>
     </footer>
     

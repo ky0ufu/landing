@@ -19,7 +19,7 @@
             {% for photo in event.photos.all %}
             <div class="col-md-3 col-6 gallery-item">
                 <a href="{{ photo.image.url }}" data-fancybox="gallery">
-                    <img src="{{ photo.image.url }}" class="img-fluid" alt="Image">
+                    <img src="{{ photo.thumbnail.url }}" class="img-fluid" alt="Image">
                 </a>
             </div>
             {% endfor %}

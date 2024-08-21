@@ -14,56 +14,6 @@ class NewsAdmin(admin.ModelAdmin):
     get_tags.short_description = 'Tags'
 
 
-@admin.register(Announcement)
-class AnnouncementAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image', 'thumbnail', 'get_tags', 'created_at')
-    search_fields = ('title', 'text')
-    prepopulated_fields = {'slug': ('title',)}
-    filter_horizontal = ('tags', 'photos',)
-
-    def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = 'Tags'
-
-
-@admin.register(PhotoReport)
-class PhotoReportAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image', 'thumbnail', 'get_tags', 'created_at')
-    search_fields = ('title', 'text')
-    prepopulated_fields = {'slug': ('title',)}
-    filter_horizontal = ('tags', 'photos',)
-
-
-    def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = 'Tags'
-
-
-@admin.register(Press)
-class PressAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image', 'thumbnail', 'get_tags', 'created_at')
-    search_fields = ('title', 'text')
-    prepopulated_fields = {'slug': ('title',)}
-    filter_horizontal = ('tags', 'photos',)
-
-
-    def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = 'Tags'
-
-
-@admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image', 'thumbnail', 'get_tags', 'video_url', 'video_file', 'created_at')
-    search_fields = ('title',)
-    prepopulated_fields = {'slug': ('title',)}
-    filter_horizontal = ('tags',)
-
-    def get_tags(self, obj):
-        return ", ".join([tag.name for tag in obj.tags.all()])
-    get_tags.short_description = 'Tags'
-
-
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
@@ -78,9 +28,8 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('region', 'decan', 'university', 'site_name', 'university_url', 'slug',)
-    search_fields = ('decan','university',)
-    prepopulated_fields = {'slug': ('decan','university')}
+    list_display = ('name', 'last_name', 'surname', 'profile_image', 'url',)
+    search_fields = ('last_name',)
 
 
 @admin.register(Document)
@@ -88,8 +37,18 @@ class DocumentAdmin(admin.ModelAdmin):
     list_display = ('title', 'file',)
     search_fields = ('title',)
 
+@admin.register(Council)
+class CouncilAdmin(admin.ModelAdmin):
+    list_display = ('name', 'chairperson', 'url', )
+    search_fields = ('name',)
 
-@admin.register(RegionSites)
-class RegionSitesAdmin(admin.ModelAdmin):
-    list_display = ('region', 'site_url', 'site_name')
-    search_fields = ('region',)
+class MemberInline(admin.TabularInline):
+    model = Member
+    extra = 1
+
+
+
+@admin.register(PresidumMember)
+class PresidumMemberAdmin(admin.ModelAdmin):
+    exclude = ('limit', )
+    list_display = ('member', )

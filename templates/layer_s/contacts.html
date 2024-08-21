@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<main class="container mt-3">
+    <h1 class="text-info">Контакты</h1>
+    <div class="container mt-4">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+    <div>
+        <b><h5 class="font-weight-bold">690922, Приморский край, г. Владивосток, о. Русский, п. Аякс, 10</h5></b>
+        <b><h5 class="font-weight-bold">rectorsdfo@dvfu.ru</h5></b>
+    </div>
+    <br>
+    <div>
+        <h5>ученый секретарь</h5>
+        <h5>{{secretary}}</h5>
+        <h5>тел.: {{secretary_phone}}</h5>
+        <h5>{{secretary_email}}</h5>
+    </div>
+    <br>
+    <div>
+        <h5>ведущий специалист</h5>
+        <h5>{{lead_specialist}}</h5>
+        <h5>тел.: {{lead_phone}}</h5>
+        <h5>{{lead_email}}</h5>
+    </div>
+    <br>
+    <div>
+        <h5>технический руководитель секретариата</h5>
+        <h5>{{techlead}}</h5>
+        <h5>тел.: {{techlead_phone}}</h5>
+        <h5>{{techlead_email}}</h5>
+    </div>
+</main>
+{% endblock %}

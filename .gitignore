@@ -1,6 +1,6 @@
 .venv/
 venv
-db
+db.sqlite3
 media/images
 media/photos
 media/thumbnails

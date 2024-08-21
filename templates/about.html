@@ -1,123 +1,73 @@
 {% extends "core/base.html" %}
 {% block content %}
-<main class="container mt-4">
-    <h1>О Совете</h1>
-    <section>
-        <h2>Структура Совета ректоров вузов Дальневосточного федерального округа</h2>
-        <div class="container org-chart">
-            <!-- Уровень 1 -->
-            <div class="row justify-content-center level">
-                <div class="col-auto node">
-                    <div class="node-content border bg-white p-3"><h4>Пример</h4></div>
-                </div>
-            </div>
-        
-            <!-- Уровень 2 -->
-            <div class="row justify-content-center level">
-                <div class="col-auto node-group">
-                    <div class="node">
-                        <div class="node-content border bg-white p-3"><h5>Пример 1</h5></div>
-                    </div>
-                    <div class="node">
-                        <div class="node-content border bg-white p-3"><h5>Пример 2</h5></div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Уровень 3 -->
-            <div class="row justify-content-center level">
-                <div class="col-auto node-group">
-                    <div class="node">
-                        <div class="node-content node border bg-white"><h5>Пример 1</h5></div>
-                        <div class="sub-node-group border">
-                            <div class="node border bg-white"><h6>Пример 1</h6></div>
-                            <div class="node border bg-white"><h6>Пример 2</h6></div>
-                        </div>
-                    </div>
-                    <div class="node">
-                        <div class="node-content node border bg-white"><h5>Пример 2</h5></div>
-                        <div class="sub-node-group border">
-                            <div class="node border bg-white"><h6>Пример 3</h6></div>
-                            <div class="node border bg-white"><h6>Пример 4</h6></div>
-                        </div>
-                    </div>
-                    <div class="node">
-                        <div class="node-content node border bg-white"><h5>Пример 3</h5></div>
-                        <div class="sub-node-group border">
-                            <div class="node border bg-white"><h6>Пример 5</h6></div>
-                            <div class="node border bg-white"><h6>Пример 6</h6></div>
-                        </div>
-                    </div>
-                    <div class="node">
-                        <div class="node-content node border bg-white"><h5>Пример 4</h5></div>
-                        <div class="sub-node-group border">
-                            <div class="node border bg-white"><h6>Пример 7</h6></div>
-                            <div class="node border bg-white"><h6>Пример 8</h6></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
+<main>
+    <div class="container mt-5">
+        <div class="text-center mb-4 light-blue-text">
+            <h1 class="font-weight-bold">Руководство Совета ректоров вузов Дальневосточного федерального округа</h1>
         </div>
-    </section>
-    <div class="container mt-3">
-        <div class="horizontal-bar mb-3"></div>
+        
+         <!-- Description -->
+        <div class="text-left mb-5">
+            <h5 class="font-weight-bold">
+                Работой Совета руководит председатель, а в его отсутствие - заместитель председателя, избираемые из числа
+                председателей советов ректоров высших учебных заведений субъектов Российской Федерации или ректоров ведущих вузов
+                Дальневосточного федерального округа.
+            </h5>
+        </div>
+
+         <!-- Members Section -->
+    <div class="row">
+        {% for member in leads %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+            <div class="bg-bright borders">
+                <img src="{{ member.profile_image.url }}" class="img-fluid" alt="{{ member.name }}" style="object-fit: cover; width: 100%; height: 300px;">
+                <div class="card-body">
+                    <p class="card-text text-left h6"><b>{{ member.last_name }} {{member.name}} {{member.surname}},</b> {{ member.describtion }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    <section>
-        <div class="container mt-4">
-            <div class="row">
-                <!-- Первая таблица -->
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <section>
-                        <h2>Состав Совета ректоров вузов Дальневосточного федерального округа</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Регион</th>
-                                    <th>Название университета</th>
-                                    <th>Ректор университета</th>
-                                    <th>Сайт университета</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for member in members %}
-                                <tr>
-                                    <td>{{ member.region }}</td>
-                                    <td>{{ member.university }}</td>
-                                    <td>{{ member.decan }}</td>
-                                    <td><a class="text-decoration-none font-weight-bold" href="{{ member.university_url }}" target="_blank">Сайт</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </section>
-                </div>
-                
-                <!-- Вторая таблица -->
-                <div class="col-md-6">
-                    <section>
-                        <h2>Региональные советы ректоров вузов Дальневосточного федерального округа</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Регион</th>
-                                    <th>Сайт университета</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for member in members_region %}
-                                <tr>
-                                    <td>{{ member.region }}</td>
-                                    <td><a class="text-decoration-none font-weight-bold" href="{{ member.university_url }}" target="_blank">Сайт</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </section>
+
+    <div class="text-left mt-5 mb-4 light-blue-text">
+        <h2 class="font-weight-bold">Президиум Совета ректоров вузов Дальневосточного федерального округа</h2>
+    </div>
+    <!-- Presidium Description -->
+    <div class="text-left mb-5">
+        <p class="h5 font-weight-bold">
+            Президиум Совета формируется в целях осуществления общего руководства деятельностью Совета в период между его
+            заседаниями. Президиум формируется из числа председателей Советов ректоров вузов субъектов Российской Федерации
+            в Дальневосточном федеральном округе. Возглавляет президиум председатель Совета ректоров вузов Дальневосточного
+            федерального округа.
+        </p>
+    </div>
+    <div class="text-left mt-5 mb-4">
+        <p class="font-weight-bold h3">Состав Президиума</p>
+    </div>
+    <div class="text-left">
+        {% for presidium_member in presidium %}
+        <p><b>{{presidium_member.member.last_name}} {{presidium_member.member.name}} {{presidium_member.member.surname}}</b>, {{presidium_member.member.describtion}}</p>
+        {% endfor %}
+    </div>
+
+    <div class="text-left mt-5 mb-4 light-blue-text">
+        <h2 class="font-weight-bold">Советы ректоров вузов Дальневосточного федерального округа</h2>
+    </div>
+
+    <div class="row text-left">
+        {% for council in councils %}
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
+            <div class="card flex-grow-1 bg-bright">
+                <div class="card-body text-left">
+                    <p class="card-title light-blue-text font-weight-bold">{{ council.name }}</p>
+                    <p class="card-text">Председатель</p>
+                    <p class="card-text">{{ council.chairperson.last_name }} {{ council.chairperson.name }} {{ council.chairperson.surname }}</p>
+                    <p class="card-text">{{ council.chairperson_describtion }}</p>
                 </div>
             </div>
         </div>
-    </section>
+        {% endfor %}
+    </div>
 
     <div class="container mt-3">
         <div class="horizontal-bar mb-3"></div>

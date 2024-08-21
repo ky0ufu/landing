@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<main class="container mt-3">
+    <h1 class="text-info">Документы</h1>
+    <div class="container mt-4">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+    <div class="container mt-4">
+        <div class="list-group">
+            {% for document in documents %}
+            <a href="{{ document.file.url }}" class="p-2 font-weight-bold bg-bright detail text-decoration-none" target="_blank">
+                <div class="bg-bright list-group-item d-flex align-items-center border-0">
+                    <img src="{% static 'document.png' %}" alt="Document Icon" class="" style="width: 50px; height: 50px;">
+                    <div class="d-flex align-items-center flex-grow-1 ml-2 borders" style="height: 50px;">
+                        <span class="ml-2 text-wrap">{{ document.title }}</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

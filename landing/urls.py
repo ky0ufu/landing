@@ -16,15 +16,20 @@ urlpatterns = [
     path('press/<slug:slug>/', views.press_detail, name='press_detail'),
     path('press/', views.press, name='press'),
 
-    path('announcement/<slug:slug>/', views.announcement_detail, name='announcement_detail'),
-    path('announcement/', views.announcement, name='announcement'),
+    path('document/', views.document, name='document'),
+    path('contact/', views.conatct, name='contact'),
 
-    path('photo/<slug:slug>/', views.photo_detail, name='photo_detail'),
-    path('photo/', views.photo, name='photo'),
 
-    path('video/<slug:slug>/', views.video_detail, name='video_detail'),
-    path('video/', views.video, name='video'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # path('announcement/<slug:slug>/', views.announcement_detail, name='announcement_detail'),
+    # path('announcement/', views.announcement, name='announcement'),
+
+    # path('photo/<slug:slug>/', views.photo_detail, name='photo_detail'),
+    # path('photo/', views.photo, name='photo'),
+
+    # path('video/<slug:slug>/', views.video_detail, name='video_detail'),
+    # path('video/', views.video, name='video'),

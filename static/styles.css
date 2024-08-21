@@ -162,7 +162,7 @@ body {
 }
 
 .bg-blue {
-    background-color: #1559a2;
+    background-color: #12477f;
 }
 
 
@@ -243,7 +243,7 @@ h3 {
 #brief_inf {
     display: flex;
     align-items: center;
-    background-color: #007BFF;
+    background-color: #12477f;
     color: white;
     padding: 20px;
 }
@@ -271,4 +271,16 @@ h3 {
         flex-direction: column;
         align-items: center; 
     }
+}
+
+.light-blue-text {
+    color:rgb(65, 155, 196);
+    font-size: 1.5rem;
+}
+
+.ml {
+    margin-left: 1.5rem;
+}
+.borders {
+    border: 1px solid rgb(31, 30, 30);
 }
