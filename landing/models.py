@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 import os
 import shutil
 from django.core.files import File
-
+from django.conf import settings
 
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name='Название тэга')
@@ -53,14 +53,26 @@ class BaseModel(models.Model):
         super().save(*args, **kwargs)
         
 
-        thumb_path = self.thumbnail.path
+        img_path = self.image.path
 
+        img = Image.open(img_path)
 
+        thumbnail_name = f'thumbnail_{os.path.basename(self.image.name)}'
+
+    
+        thumbnail_path = os.path.join(settings.MEDIA_ROOT, 'thumbnails', thumbnail_name)
+
+        print(thumbnail_path)
         max_thumb = (1100, 675)
 
+        img = img.resize((1100, 675), Image.LANCZOS)
 
-        self.resize_img(thumb_path, max_thumb)
+        img.save(thumbnail_path)
+
+        self.thumbnail = f'thumbnails/{thumbnail_name}'
+        super().save(*args, **kwargs)
     
+
     def create_thumbnail(self):
         """
         Создаем копию изображения и изменяем размер для миниатюры.
