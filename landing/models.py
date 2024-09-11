@@ -10,12 +10,18 @@ import os
 import shutil
 from django.core.files import File
 from django.conf import settings
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name='Название тэга')
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
     
 
 class BaseModel(models.Model):
@@ -62,7 +68,6 @@ class BaseModel(models.Model):
     
         thumbnail_path = os.path.join(settings.MEDIA_ROOT, 'thumbnails', thumbnail_name)
 
-        print(thumbnail_path)
         max_thumb = (1100, 675)
 
         img = img.resize((1100, 675), Image.LANCZOS)
@@ -75,12 +80,12 @@ class BaseModel(models.Model):
 
     def create_thumbnail(self):
         """
-        Создаем копию изображения и изменяем размер для миниатюры.
+        Создаем копию изображения и изменяем размер для thumbnail.
         """
         img_path = self.image.path
         thumb_path = os.path.join(os.path.dirname(self.image.path), 'thumbnails', os.path.basename(self.image.path))
 
-        # Копируем изображение в папку миниатюр
+  
         if not os.path.exists(os.path.dirname(thumb_path)):
             os.makedirs(os.path.dirname(thumb_path))
 
@@ -89,7 +94,6 @@ class BaseModel(models.Model):
 
         self.resize_img(thumb_path, (1100, 675))
 
-        # Сохраняем путь к миниатюре в поле thumbnail
         self.thumbnail.save(os.path.basename(thumb_path), File(open(thumb_path, 'rb')), save=False)
 
 
@@ -120,8 +124,9 @@ class Photo(models.Model):
 
 
 class News(BaseModel):
+    
+    text = CKEditor5Field(verbose_name='Текст новости', default='Tекст', config_name='extends')
 
-    text = models.TextField(verbose_name='Текст новости')
     photos = models.ManyToManyField('Photo', related_name='news_photos', blank=True, verbose_name='Изображения')
 
     def get_absolute_url(self):
@@ -156,6 +161,14 @@ class Member(models.Model):
     def __str__(self):
         return f'{self.last_name} {self.name} {self.surname}'
 
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img_path = self.profile_image.path
+
+        max_img = (350, 300)
+
+        self.resize_img(img_path, max_img)
     
 
     def get_absolute_url(self):
@@ -169,6 +182,12 @@ class Member(models.Model):
 
     photo_tag.short_description = 'Photo'
     photo_tag.allow_tags = True
+
+
+    def resize_img(self, path, size):
+        with Image.open(path) as img:
+            img = img.resize(size, Image.LANCZOS)
+            img.save(path)
 
 
 class Document(models.Model):
@@ -212,7 +231,53 @@ class PresidumMember(models.Model):
         verbose_name_plural = 'Участники президиума'
 
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
     def __str__(self) -> str:
         return self.member.__str__()
+    
+
+class Region(models.Model):
+    name = models.CharField(max_length=300, verbose_name='Регион')
+
+    slug = models.SlugField(max_length=300, verbose_name='Слаг', blank=True, null=True)
+
+    content = CKEditor5Field(verbose_name='Информация о вузах', config_name='extends')
+
+    def __str__(self) -> str:
+        return f'{self.name}'
+    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+    
+
+    def get_absolute_url(self):
+        return reverse("region", kwargs={"slug": self.slug})
+    
+
+    class Meta:
+        verbose_name = 'Регион'
+        verbose_name_plural = 'Регионы'
+
+
+class EditableText(models.Model):
+    key = models.CharField(max_length=255, verbose_name='Место контента')
+    slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
+
+    content = models.TextField(verbose_name='Текст')
+
+
+    def __str__(self) -> str:
+        return f'{self.slug}'
+    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.key)
+        super().save(*args, **kwargs)
+
 
 

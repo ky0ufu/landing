@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+{% load static %}
 <main>
     <div class="container mt-5">
         <div class="text-center mb-4 light-blue-text">
@@ -8,21 +9,26 @@
         
          <!-- Description -->
         <div class="text-left mb-5">
-            <h5 class="font-weight-bold">
-                Работой Совета руководит председатель, а в его отсутствие - заместитель председателя, избираемые из числа
-                председателей советов ректоров высших учебных заведений субъектов Российской Федерации или ректоров ведущих вузов
-                Дальневосточного федерального округа.
+            {% if is_editor %}
+            <h5 class="" contenteditable="true" id="editable-text">
+                {{council_text|safe}}
             </h5>
+            <button id="save-button" data-key="council-text">Сохранить</button>
+            {% else %}
+            <h5 class="">
+                {{council_text|safe}}
+            </h5>
+            {% endif %}
         </div>
 
          <!-- Members Section -->
     <div class="row">
-        {% for member in leads %}
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex">
+        {% for mem in leads %}
+        <div class="col-lg-4 col-md-8 col-sm-12 mb-4 d-flex">
             <div class="bg-bright borders">
-                <img src="{{ member.profile_image.url }}" class="img-fluid" alt="{{ member.name }}" style="object-fit: cover; width: 100%; height: 300px;">
+                <img src="{{ mem.profile_image.url }}" class="img-fluid object-fit-contain" alt="{{ mem.name }}" style="object-fit: cover; width: 100%; height: 300px;">
                 <div class="card-body">
-                    <p class="card-text text-left h6"><b>{{ member.last_name }} {{member.name}} {{member.surname}},</b> {{ member.describtion }}</p>
+                    <p class="card-text text-left h6"><b>{{ mem.last_name }} {{mem.name}} {{mem.surname}},</b> {{ mem.describtion|safe }}</p>
                 </div>
             </div>
         </div>
@@ -34,7 +40,7 @@
     </div>
     <!-- Presidium Description -->
     <div class="text-left mb-5">
-        <p class="h5 font-weight-bold">
+        <p class="h5">
             Президиум Совета формируется в целях осуществления общего руководства деятельностью Совета в период между его
             заседаниями. Президиум формируется из числа председателей Советов ректоров вузов субъектов Российской Федерации
             в Дальневосточном федеральном округе. Возглавляет президиум председатель Совета ректоров вузов Дальневосточного
@@ -42,11 +48,16 @@
         </p>
     </div>
     <div class="text-left mt-5 mb-4">
-        <p class="font-weight-bold h3">Состав Президиума</p>
+        <p class="font-weight-bold h3 light-blue-text">Состав Президиума</p>
     </div>
     <div class="text-left">
         {% for presidium_member in presidium %}
-        <p><b>{{presidium_member.member.last_name}} {{presidium_member.member.name}} {{presidium_member.member.surname}}</b>, {{presidium_member.member.describtion}}</p>
+        {% if is_editor %}
+        <p><b><span contenteditable="true" id="name-{{ presidium_member.id }}">{{presidium_member.member.last_name|safe}} {{presidium_member.member.name|safe}} {{presidium_member.member.surname|safe}}</span></b>, <span contenteditable="true"  id="description-{{ presidium_member.id }}">{{presidium_member.member.describtion|safe}}</span></p>
+        <button class="save-presidium-button" data-id="{{ presidium_member.id }}">Сохранить изменения</button>
+        {% else%}
+        <p><b>{{presidium_member.member.last_name|safe}} {{presidium_member.member.name|safe}} {{presidium_member.member.surname|safe}}</b>,{{presidium_member.member.describtion|safe}}</p>
+        {%endif %}
         {% endfor %}
     </div>
 
@@ -58,21 +69,38 @@
         {% for council in councils %}
         <div class="col-lg-6 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch">
             <div class="card flex-grow-1 bg-bright">
+                {% if is_editor %}
                 <div class="card-body text-left">
-                    <p class="card-title light-blue-text font-weight-bold">{{ council.name }}</p>
+                    <p class="card-title light-blue-text font-weight-bold" contenteditable="true" id="council-name-{{ council.id }}">{{ council.name|safe }}</p>
                     <p class="card-text">Председатель</p>
-                    <p class="card-text">{{ council.chairperson.last_name }} {{ council.chairperson.name }} {{ council.chairperson.surname }}</p>
-                    <p class="card-text">{{ council.chairperson_describtion }}</p>
+                    <p class="card-text" contenteditable="true"  id="chairperson-name-{{ council.id }}">{{ council.chairperson.last_name|safe }} {{ council.chairperson.name|safe }} {{ council.chairperson.surname|safe }}</p>
+                    <p class="card-text" contenteditable="true" id="chairperson-description-{{ council.id }}">{{ council.chairperson_describtion|safe }}</p>
                 </div>
+                <button class="save-council-button" data-id="{{ council.id }}">Сохранить изменения</button>
+                {% else %}
+                <div class="card-body text-left">
+                    <p class="card-title light-blue-text font-weight-bold">{{ council.name|safe }}</p>
+                    <p class="card-text">Председатель</p>
+                    <p class="card-text">{{ council.chairperson.last_name|safe }} {{ council.chairperson.name|safe }} {{ council.chairperson.surname|safe }}</p>
+                    <p class="card-text">{{ council.chairperson_describtion|safe }}</p>
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
     </div>
 
-    <div class="container mt-3">
-        <div class="horizontal-bar mb-3"></div>
-    </div>
 </main>
 
 {% include "core/footer.html" %}
+
+<script>
+    var updateTextAboutUrl = "{% url 'landing:update_council' %}";
+    var csrfToken = "{{ csrf_token }}";
+    var updateTextUrl = "{% url 'landing:update_text' %}";
+    var updateTextPresidumUrl = "{% url 'landing:update_presidium' %}";
+</script>
+<script src="{% static 'js/editable_about.js' %}"></script>
+<script src="{% static 'js/editable_text.js' %}"></script>
+<script src="{% static 'js/editable_presidium.js' %}"></script>
 {% endblock %}

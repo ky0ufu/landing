@@ -15,7 +15,7 @@
                                     {% endfor %}
                                 </div>
                                 <h5><a href="{% url 'landing:news_detail' object.slug %}" class="font-weight-bold ink-opacity-75-hover detail_info text-decoration-none">{{ object.title }}</a></h5>
-                                <p>{{object.text|truncatechars:200}}</p>
+                                <p>{{object.text|truncatechars:200|safe}}</p>
                             </div>
                             <div class="d-flex order-1 order-md-2 order-sm-1 flex-grow-1 d-flex justify-content-end">
                                 <img src="{{ object.thumbnail.url }}" class="img-fluid" alt="Image">

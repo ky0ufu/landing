@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load static %}
+<main class="container mt-3">
+    <h1 class="text-info">{{ region.name }}</h1>
+    <div class="container mt-4">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
+    <div class="container mt-4">
+        <div class="list-group">
+           {{region.content|safe}}
+        </div>
+    </div>
+</main>
+<div class="">
+{% include "core/footer.html" %}
+</div>
+{% endblock %}

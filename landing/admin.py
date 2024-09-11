@@ -4,9 +4,9 @@ from .models import *
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image', 'thumbnail', 'get_tags', 'created_at')
+    exclude = ('slug', 'thumbnail')
+    list_display = ('title', 'image', 'get_tags', 'created_at')
     search_fields = ('title', 'text')
-    prepopulated_fields = {'slug': ('title',)}
     filter_horizontal = ('tags', 'photos',)
 
     def get_tags(self, obj):
@@ -37,18 +37,32 @@ class DocumentAdmin(admin.ModelAdmin):
     list_display = ('title', 'file',)
     search_fields = ('title',)
 
+
 @admin.register(Council)
 class CouncilAdmin(admin.ModelAdmin):
     list_display = ('name', 'chairperson', 'url', )
     search_fields = ('name',)
+
 
 class MemberInline(admin.TabularInline):
     model = Member
     extra = 1
 
 
-
 @admin.register(PresidumMember)
 class PresidumMemberAdmin(admin.ModelAdmin):
     exclude = ('limit', )
     list_display = ('member', )
+
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+    #exclude = ('slug', )
+
+
+@admin.register(EditableText)
+class TextAdmin(admin.ModelAdmin):
+    list_display = ('key', 'content',)
+    exclude = ('slug',)

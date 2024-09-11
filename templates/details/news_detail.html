@@ -10,7 +10,7 @@
                 <div class="horizontal-bar mb-3"></div>
             </div>
             <div class="content text-left">
-                <p>{{ event.text|linebreaks }}</p>
+                <p>{{ event.text|safe }}</p>
             </div>
         </div>
     </div>
@@ -23,9 +23,6 @@
                 </a>
             </div>
             {% endfor %}
-        </div>
-        <div class="container mt-3">
-            <div class="horizontal-bar mb-3"></div>
         </div>
     </div>
 </main>

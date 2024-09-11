@@ -10,33 +10,31 @@
         <b><h5 class="font-weight-bold">690922, Приморский край, г. Владивосток, о. Русский, п. Аякс, 10</h5></b>
         <b><h5 class="font-weight-bold">rectorsdfo@dvfu.ru</h5></b>
     </div>
+
     <br>
     <div>
-        <h5>ученый секретарь</h5>
-        <h5>{{secretary}}</h5>
-        <h5>тел.: {{secretary_phone}}</h5>
-        <h5>{{secretary_email}}</h5>
-    </div>
-    <br>
-    <div>
-        <h5>ведущий специалист</h5>
-        <h5>{{lead_specialist}}</h5>
-        <h5>тел.: {{lead_phone}}</h5>
-        <h5>{{lead_email}}</h5>
-    </div>
-    <br>
-    <div>
-        <h5>технический руководитель секретариата</h5>
-        <h5>{{techlead}}</h5>
-        <h5>тел.: {{techlead_phone}}</h5>
-        <h5>{{techlead_email}}</h5>
+        {% if is_editor %}
+                <h5 contenteditable="true" id="editable-text">{{text|safe}}</h5>
+                <button id="save-button" data-key="contacts">Сохранить</button>
+                {% else %}
+                <h5>{{text|safe}}</h5>
+        {% endif %}
     </div>
 </main>
 
-<footer id="contact" class="bg-bright text-center text-lg-start mt-4">
+<footer id="contact" class="bg-bright text-center text-lg-start mt-4 fixed-bottom">
+    <div class="container mt-4">
+        <div class="horizontal-bar mb-3"></div>
+    </div>
     <div class="container p-4">
         <p>© Совет ректоров вузов Дальневосточного федерального округа</p>
     </div>
 </footer>
+
+<script>
+    var updateTextUrl = "{% url 'landing:update_text' %}";
+    var csrfToken = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/editable_text.js' %}"></script>
 {% endblock %}
 
