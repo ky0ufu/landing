@@ -66,3 +66,8 @@ class RegionAdmin(admin.ModelAdmin):
 class TextAdmin(admin.ModelAdmin):
     list_display = ('key', 'content',)
     exclude = ('slug',)
+
+@admin.register(HeadImage)
+class TextAdmin(admin.ModelAdmin):
+    list_display = ('image',)
+    exclude = ('thumbnail',)

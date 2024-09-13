@@ -281,3 +281,36 @@ class EditableText(models.Model):
 
 
 
+class HeadImage(models.Model):
+    image = models.ImageField(upload_to='images/', default='placeholder.jpg', verbose_name='Изображение')
+    thumbnail = models.ImageField(upload_to='thumbnails/', verbose_name='Миниатюра', blank=True, null=True)
+
+    def __str__(self) -> str:
+        return 'head_image'
+
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+
+        img_path = self.image.path
+
+        img = Image.open(img_path)
+
+        thumbnail_name = f'thumbnail_{os.path.basename(self.image.name)}'
+
+    
+        thumbnail_path = os.path.join(settings.MEDIA_ROOT, 'thumbnails', thumbnail_name)
+
+
+        img = img.resize((400, 400), Image.LANCZOS)
+
+        img.save(thumbnail_path)
+
+        self.thumbnail = f'thumbnails/{thumbnail_name}'
+        super().save(*args, **kwargs)
+    
+
+    class Meta:
+        verbose_name = 'Изображение председателя'
+        verbose_name_plural = 'Изображение председателя'

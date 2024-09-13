@@ -29,10 +29,13 @@ def index(request):
 
     is_editor = is_editor_or_superuser(request.user)
 
+    head_image = HeadImage.objects.all().first()
+
     context = {
         'news': news,
         'text': text,
         'is_editor': is_editor,
+        'head_image': head_image,
     }
     return render(request, 'core/index.html', context)
 
